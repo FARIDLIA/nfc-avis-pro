@@ -2,5 +2,5 @@
   "name":"avis-nfc-qr-pro","private":true,"version":"3.0.0","type":"module",
   "scripts":{"dev":"vite","build":"vite build","preview":"vite preview","deploy":"npm run build && wrangler deploy","db:local":"wrangler d1 execute avis-nfc-qr-pro --local --file=./schema.sql","db:remote":"wrangler d1 execute avis-nfc-qr-pro --remote --file=./schema.sql","typecheck":"tsc --noEmit"},
   "dependencies":{"@tailwindcss/vite":"^4.1.14","@vitejs/plugin-react":"^5.0.4","canvas-confetti":"^1.9.4","lucide-react":"^0.546.0","motion":"^12.23.24","qrcode":"^1.5.4","react":"^19.0.1","react-dom":"^19.0.1","vite":"^6.2.3"},
-  "devDependencies":{"@cloudflare/vite-plugin":"^1.13.0","@cloudflare/workers-types":"^4.20260909.0","@types/canvas-confetti":"^1.9.0","@types/node":"^22.14.0","@types/qrcode":"^1.5.6","tailwindcss":"^4.1.14","typescript":"~5.8.2","wrangler":"^4.35.0"}
+  "devDependencies":{"@cloudflare/vite-plugin":"^1.13.0","@cloudflare/workers-types":"^5.20260908.1","@types/canvas-confetti":"^1.9.0","@types/node":"^22.14.0","@types/qrcode":"^1.5.6","tailwindcss":"^4.1.14","typescript":"~5.8.2","wrangler":"^4.35.0"}
 }
