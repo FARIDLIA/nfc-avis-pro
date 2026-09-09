@@ -4,5 +4,5 @@
   "compatibility_date": "2026-09-09",
   "main": "./worker/index.ts",
   "assets": { "binding": "ASSETS", "not_found_handling": "single-page-application", "run_worker_first": ["/api/*", "/s/*", "/r/*"] },
-  "d1_databases": [{ "binding": "DB", "database_name": "avis-nfc-qr-pro", "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID" }]
+  "d1_databases": [{ "binding": "DB", "database_name": "avis-nfc-qr-pro", "database_id": "4a07d3b1-0c09-4ea6-90d5-6dc7181a0bad" }]
 }
