@@ -1,0 +1,14 @@
+PRAGMA foreign_keys = ON;
+CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY,email TEXT UNIQUE NOT NULL,name TEXT NOT NULL,phone TEXT,city TEXT,role TEXT NOT NULL CHECK(role IN ('admin','reseller','merchant')),credits INTEGER NOT NULL DEFAULT 999999,status TEXT NOT NULL DEFAULT 'active',merchant_id TEXT,created_at TEXT NOT NULL,password_hash TEXT,password_salt TEXT);
+CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY,user_id TEXT NOT NULL,expires_at TEXT NOT NULL,created_at TEXT NOT NULL,FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);
+CREATE TABLE IF NOT EXISTS merchants (id TEXT PRIMARY KEY,reseller_id TEXT NOT NULL,name TEXT NOT NULL,city TEXT NOT NULL,address TEXT NOT NULL DEFAULT '',google_place_id TEXT NOT NULL DEFAULT '',google_review_url TEXT NOT NULL,initial_review_count INTEGER NOT NULL DEFAULT 0,current_review_count INTEGER NOT NULL DEFAULT 0,initial_rating REAL NOT NULL DEFAULT 5,current_rating REAL NOT NULL DEFAULT 5,last_review_sync_date TEXT NOT NULL,activated_at TEXT NOT NULL,contact_email TEXT NOT NULL DEFAULT '',contact_phone TEXT NOT NULL DEFAULT '',total_scans INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(reseller_id) REFERENCES users(id));
+CREATE TABLE IF NOT EXISTS stands (id TEXT PRIMARY KEY,merchant_id TEXT NOT NULL,name TEXT NOT NULL,type TEXT NOT NULL,nfc_code TEXT UNIQUE NOT NULL,nfc_scans INTEGER NOT NULL DEFAULT 0,qr_scans INTEGER NOT NULL DEFAULT 0,total_scans INTEGER NOT NULL DEFAULT 0,last_programmed_date TEXT,ntag_chip_type TEXT NOT NULL DEFAULT 'NTAG213',created_at TEXT NOT NULL,FOREIGN KEY(merchant_id) REFERENCES merchants(id) ON DELETE CASCADE);
+CREATE TABLE IF NOT EXISTS scan_events (id TEXT PRIMARY KEY,stand_id TEXT NOT NULL,merchant_id TEXT NOT NULL,type TEXT NOT NULL,device_type TEXT NOT NULL,created_at TEXT NOT NULL,FOREIGN KEY(stand_id) REFERENCES stands(id) ON DELETE CASCADE);
+CREATE TABLE IF NOT EXISTS credit_transactions (id TEXT PRIMARY KEY,user_id TEXT NOT NULL,amount INTEGER NOT NULL,type TEXT NOT NULL,description TEXT NOT NULL,performed_by TEXT NOT NULL,payment_method TEXT,date TEXT NOT NULL,balance_after INTEGER NOT NULL,FOREIGN KEY(user_id) REFERENCES users(id));
+CREATE TABLE IF NOT EXISTS app_state (key TEXT PRIMARY KEY,value TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS admin_attempts (key TEXT PRIMARY KEY,count INTEGER NOT NULL,reset_at INTEGER NOT NULL);
+CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
+CREATE INDEX IF NOT EXISTS idx_merchants_reseller ON merchants(reseller_id);
+CREATE INDEX IF NOT EXISTS idx_stands_merchant ON stands(merchant_id);
+CREATE INDEX IF NOT EXISTS idx_scan_merchant ON scan_events(merchant_id,created_at DESC);
+INSERT OR IGNORE INTO app_state(key,value) VALUES ('quota_daily_used','0'),('quota_monthly_used','0'),('quota_day',''),('quota_month','');

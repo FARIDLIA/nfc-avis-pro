@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "avis-nfc-qr-pro",
+  "compatibility_date": "2026-09-09",
+  "main": "./worker/index.ts",
+  "assets": { "binding": "ASSETS", "not_found_handling": "single-page-application", "run_worker_first": ["/api/*", "/s/*", "/r/*"] },
+  "d1_databases": [{ "binding": "DB", "database_name": "avis-nfc-qr-pro", "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID" }]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Avis NFC & QR Pro",
+  "description": "Plateforme de gestion pour revendeurs et commerçants : programmation puces NFC, QR codes, redirection sans frais, quotas Google maîtrisés et studio support plexiglas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
